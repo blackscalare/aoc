@@ -2,8 +2,8 @@ with open('input.txt', 'r') as f:
     codes = f.readlines()
 	
 sanitizedList = codes[0].split(',')
-sanitizedList[1] = 40
-sanitizedList[2] = 19
+sanitizedList[1] = 12
+sanitizedList[2] = 2
 for i in range(len(sanitizedList)):
 	if i % 4 == 0:
 		if int(sanitizedList[i]) == 1:
