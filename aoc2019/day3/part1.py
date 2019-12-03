@@ -11,11 +11,6 @@ posX1 = 0
 posY1 = 0
 lastPosX1 = 0
 lastPosY1 = 0
-pastPositions = []
-pastPositions1 = []
-pastPositions.append([0,0])
-pastPositions1.append([0,0])
-
 distance = []
 distance1 = []
 
@@ -44,7 +39,11 @@ for a in line1:
 		else:
 			zz = posX
 			xx = lastPosX
-		distance.append([list(range(xx, zz+1)), posY])
+		#distance.append([list(range(xx, zz+1)), posY])
+		for x in range(xx, zz+1):
+			distance.append([x, posY])
+		#distance.append([x, posY] for x in range(xx, zz+1))
+		#distance.append([[x, posY] for x in range(xx, zz+1)])
 	elif lastPosY != posY:
 		if posY < lastPosY:
 			zz = lastPosY
@@ -52,7 +51,11 @@ for a in line1:
 		else:
 			zz = posY
 			xx = lastPosY
-		distance.append([posX, list(range(xx, zz+1))])
+			
+		for x in range(xx, zz+1):
+			distance.append([posX, x])
+		#distance.append([posX, list(range(xx, zz+1))])
+		#distance.append(list(zip(distance, [[posX, x] for x in range(xx, zz+1)])))
 
 print(distance)
 
@@ -81,7 +84,10 @@ for a in line2:
 		else:
 			zz = posX1
 			xx = lastPosX1
-		distance1.append([list(range(xx, zz+1)), posY1])
+		#distance1.append([list(range(xx, zz+1)), posY1])
+		for x in range(xx, zz+1):
+			distance1.append([x, posY1])
+		#distance1.append([[x, posY1] for x in range(xx, zz+1)])
 	elif lastPosY1 != posY1:
 		if posY1 < lastPosY1:
 			zz = lastPosY1
@@ -89,10 +95,17 @@ for a in line2:
 		else:
 			zz = posY1
 			xx = lastPosY1
-		distance1.append([posX1, list(range(xx, zz+1))])
-print(distance1)
+			
+		#distance1.append([posX1, list(range(xx, zz+1))])
+		for x in range(xx, zz+1):
+			distance1.append([posX1, x])
+		#distance1.append(list(zip(distance, [[posX1, x] for x in range(xx, zz+1)])))
+#print(distance1)
 
-
+for x in distance:
+	if x in distance1:
+		ans = abs(0-x[0])+abs(0-x[1])
+		print(ans)
 
 print('End position\nx: {}, y: {}'.format(posX, posY))
 print('End position 2\nx: {}, y: {}'.format(posX1, posY1))
