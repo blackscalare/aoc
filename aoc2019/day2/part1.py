@@ -1,3 +1,5 @@
+import time
+start_time = time.time()
 with open('input.txt', 'r') as f:
     codes = f.readlines()
 	
@@ -14,3 +16,4 @@ for i in range(len(sanitizedList)):
 			break
 	
 print(sanitizedList[0])
+print("TIME {}".format(time.time()-start_time))

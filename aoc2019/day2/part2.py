@@ -1,3 +1,5 @@
+import time
+start_time = time.time()
 with open('input.txt', 'r') as f:
     codes = f.readlines()
 
@@ -17,3 +19,5 @@ for x in range(100):
 			if int(sanitizedList[0]) == 19690720:
 				print('x: {}, y: {}'.format(x,y))
 				print(100*int(x)+int(y))
+				
+print("TIME {}".format(time.time()-start_time))
