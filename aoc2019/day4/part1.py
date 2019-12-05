@@ -1,18 +1,32 @@
 valid_pws = 0
-for x in range(156218, 652527):
-	curr = str(x)
-	last_c = 0
-	rep = 0
+all_increasing = []
+all_rep = []
+for x in range(156218, 652527 + 1):
 	valid = True
-	for i, c in enumerate(curr):
+	curr = str(x)
+	for i in range(len(curr)):
 		if i == 0:
-			last_c = c
 			continue
-		if last_c < c:
+		if int(curr[i]) < int(curr[i - 1]):
 			valid = False
 			break
-		last_c = c
 	if valid:
-		print(x)
-		valid_pws += 1
-print(valid_pws)
+		all_increasing.append(x)
+		
+for x in all_increasing:
+	rep = 0
+	curr = str(x)
+	valid = False
+	for i in range(len(curr)):
+		if i == 0:
+			continue
+		if int(curr[i]) == int(curr[i - 1]):
+			valid = True
+			break
+	if valid:
+		all_rep.append(x)
+k=0
+for x in all_increasing:
+	if x in all_rep:
+		k += 1
+print(k)
