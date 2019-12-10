@@ -1,3 +1,6 @@
+import time
+start_time = time.time()
+
 with open('input.txt', 'r') as f:
     lines = f.read().splitlines()
 
@@ -69,3 +72,5 @@ for intersection in intersections:
     if ans < lowest and ans != 0:
         lowest = ans
 print(lowest)
+
+print("TIME {}".format(time.time()-start_time))
