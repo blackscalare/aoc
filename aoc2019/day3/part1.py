@@ -6,10 +6,8 @@ line2 = lines[1].split(',')
 
 def get_intersections(points1, points2):
     intersections = []
-    steps = []
     steps_set = set()
     steps_set2 = set()
-    steps2 = []
     for i in range(len(points1)):
         direction = 1
         if i == 0:
