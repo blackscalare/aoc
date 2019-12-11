@@ -64,36 +64,45 @@ def get_points(line):
             dy -= int(point[1:])
         points.append([dx, dy])
     return points
-
+    
+def part2(intersections):
+    lowest = 9999999
+    for intersection in intersections[0]:
+        at_intersection = False
+        at_intersection2 = False
+        dx = 0
+        dy = 0
+        dx2 = 0
+        dy2 = 0
+        for i in range(len(intersections[1])):
+            if intersections[1][i] == intersection:
+                at_intersection = True
+            if i == 0:
+                continue
+            if intersections[1][i][0] != intersections[1][i - 1][0]:
+                    dx += abs(intersections[1][i][0] - intersections[1][i - 1][0])
+            elif intersections[1][i][1] != intersections[1][i - 1][1]:
+                    dy += abs(intersections[1][i][1] - intersections[1][i - 1][1])
+            if at_intersection:
+                break
+        for i in range(len(intersections[2])):
+            if intersections[2][i] == intersection:
+                at_intersection2 = True
+            if i == 0:
+                continue
+            if intersections[2][i][0] != intersections[2][i - 1][0]:
+                    dx2 += abs(intersections[2][i][0] - intersections[2][i - 1][0])
+            elif intersections[2][i][1] != intersections[2][i - 1][1]:
+                    dy2 += abs(intersections[2][i][1] - intersections[2][i - 1][1])
+            if at_intersection2:
+                break
+        summary = dx+dy+dx2+dy2
+        if summary < lowest and summary > 2:
+            lowest = summary
+    print(lowest)
 points1 = get_points(line1)
 points2 = get_points(line2)
 intersections = get_intersections(points1, points2)
+part2(intersections)
 
-lowest = 9999999
-for intersection in intersections[0]:
-    dx = 0
-    dy = 0
-    dx2 = 0
-    dy2 = 0
-    for i in range(len(intersections[1])):
-        if intersections[1][i] == intersection :
-            break
-        if i == 0:
-            continue
-        if intersections[1][i][0] != intersections[1][i - 1][0]:
-            dx += abs(intersections[1][i][0] - intersections[1][i - 1][0])
-        else:
-            dy += abs(intersections[1][i][1] - intersections[1][i - 1][1])
-    for i in range(len(intersections[2])):
-        if intersections[2][i] == intersection :
-            break
-        if i == 0:
-            continue
-        if intersections[2][i][0] != intersections[2][i - 1][0]:
-            dx2 += intersections[2][i][0] - intersections[2][i - 1][0] 
-        else:
-            dy2 += intersections[2][i][1] - intersections[2][i - 1][1]
-    print(dx+dy)
-    print(dx2+dy2)
-print(lowest)
 print("TIME {}".format(time.time()-start_time))
