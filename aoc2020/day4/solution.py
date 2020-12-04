@@ -28,37 +28,14 @@ def part2(passports):
             d[b[index]] = b[index + 1]
         try:
             byr = d['byr']
-        except Exception as e:
-            continue
-        try:
             iyr = d['iyr']
-        except Exception as e:
-            continue
-        try:
             eyr = d['eyr']
-        except Exception as e:
-            continue
-        try:
             hgt = d['hgt']
-        except Exception as e:
-            continue
-        try:
             hcl = d['hcl']
-        except Exception as e:
-            continue
-        try:
             ecl = d['ecl']
-        except Exception as e:
-            continue
-        try:
             pid = d['pid']
         except Exception as e:
-            continue
-        try:
-            d['cid']
-        except Exception as e:
-            pass
-        
+            continue        
         if not (int(byr) >= 1920 and int(byr) <= 2002):
             continue
         if not (int(iyr) >= 2010 and int(iyr) <= 2020):
