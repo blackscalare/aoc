@@ -22,7 +22,6 @@ for line in lines:
         elif direction == 'B':
             mi = mi + (ma - mi) / 2
     row_val = int((ma - mi) + mi)
-    #print('row', row_val)
     mi = 0
     ma = 7
     for direction in seat:
@@ -31,7 +30,6 @@ for line in lines:
         elif direction == 'R':
             mi = int(mi + (ma - mi) / 2)
     seat_val = (ma - mi) + mi
-    #print('seat', seat_val)
     seat_id = int(row_val*8+seat_val)
     seat_id_list.append(seat_id)
     if(seat_id >= highest):
