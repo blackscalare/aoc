@@ -13,48 +13,34 @@ def part1(lines):
     tot_sum += len(list(dict.fromkeys(yes_list)))
     print(tot_sum)
 
+def counter(yes_list, tot_sum):
+    if len(yes_list) == 1:
+        tot_sum += len(list(dict.fromkeys(yes_list))[0])
+        yes_list = []
+    else:
+        index = 0
+        q = ''.join(map(str, yes_list))
+        q = list(dict.fromkeys(q))
+        for c in q:
+            cnt = 0
+            for x in yes_list:
+                if c in x:
+                    cnt += 1
+            if cnt == len(yes_list):
+                tot_sum += 1
+    return tot_sum
+
 def part2(lines):
     yes_list = []
     tot_sum = 0
     for line in lines:
         if line == '\n':
-            if len(yes_list) == 1:
-                tot_sum += len(list(dict.fromkeys(yes_list))[0])
-                yes_list = []
-            else:
-                index = 0
-                q = ''.join(map(str, yes_list))
-                q = list(dict.fromkeys(q))
-                #print(q)
-                #print(yes_list)
-                for c in q:
-                    cnt = 0
-                    for x in yes_list:
-                        if c in x:
-                            cnt += 1
-                    if cnt == len(yes_list):
-                        tot_sum += 1    
-                yes_list = []         
+            tot_sum = counter(yes_list, tot_sum)
+            yes_list = []
         else:
             yes_list.append(line.rstrip('\n'))
-    if len(yes_list)> 0:
-        if len(yes_list) == 1:
-            tot_sum += len(list(dict.fromkeys(yes_list))[0])
-            yes_list = []
-        else:
-            index = 0
-            q = ''.join(map(str, yes_list))
-            q = list(dict.fromkeys(q))
-            #print(q)
-            #print(yes_list)
-            for c in q:
-                cnt = 0
-                for x in yes_list:
-                    if c in x:
-                        cnt += 1
-                if cnt == len(yes_list):
-                    tot_sum += 1    
-            yes_list = []
+    if len(yes_list) > 0:
+        tot_sum = counter(yes_list, tot_sum)
     print(tot_sum)
 
 with open('input.txt') as f:
