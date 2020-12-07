@@ -13,11 +13,7 @@ def check_bags(bags_w_gold, tot_bags):
                     continue
                 if x in b:
                     kbags.append(bags[bag][0])
-                    #print(bags[bag])
-    #print(len(list(dict.fromkeys(kbags))))
-    #print(list(dict.fromkeys(kbags)))
     if len(kbags) > 0:
-        #print(kbags)
         check_bags(list(dict.fromkeys(kbags)), tot_bags)
 
 def part1(lines):
@@ -32,38 +28,28 @@ def part1(lines):
             #should work around having else here, otherwise it contains the main bag as well
             contain.append(b)
         bags[line[0].rstrip(' ')] = contain
-        #print(line)
     bags_w_gold = []
     for bag in bags:
-        #print(bags[bag])
         if bag == 'shiny gold bags':
             continue
         else:
             for b in bags[bag]:
                 if 'shiny gold bag' in b:
                     bags_w_gold.append(bags[bag][0])
-                    #print(bags[bag])
     tot_bags += len(bags_w_gold)
-    #print(bags_w_gold)
     check_bags(bags_w_gold, tot_bags)
-    #print(tot_bags)
-    #print(bags.get('shiny gold bags'))
 
-def check_bags2(bags_in_gold, tot_bags):
-    bd = []
-    for bag in bags:
-        for x in bags_in_gold:
-            x = ''.join([i for i in x if not i.isdigit()])
-            x = x[1:]
-            if x == bag:
-                bd.append(bags[bag][0])
-    #print(bd)
-    if bd and bd[0] != 'no other bags':
-        tot_bags *= int(bd[0][:1])
-        print(bd)
-    print(tot_bags)
-    if len(bd) > 0:
-        check_bags2(bd, tot_bags)
+def check_bags2(bags_in_gold):
+    num_bags = 0
+    if bags_in_gold[len(bags_in_gold) - 1] != 's':
+        bags_in_gold += 's'
+    for b in bags[bags_in_gold[2:]]:
+        if(b[:1] == 'n'):
+            return num_bags
+        num_bags += int(b[:1])
+        num_bags += check_bags2(b) * int(b[:1])
+    return num_bags
+
 def part2(lines):
     tot_bags = 0
     for line in lines:
@@ -76,20 +62,30 @@ def part2(lines):
             else:
                 contain.append(b)
         bags[line[0].rstrip(' ')] = contain
-    print(bags)
+    tot_bags = 0
     bags_in_gold = []
     for bag in bags:
         if bag == 'shiny gold bags':
             for b in bags[bag]:
-                bags_in_gold.append(bags[bag][0])
-    #print(bags_in_gold)
-    tot_bags = int(bags_in_gold[0][:1])
-    check_bags2(bags_in_gold, tot_bags)
-#print(lines)
+                yi = int(b[:1])
+                tot_bags += yi
+                tot_bags += check_bags2(b) * yi
+    print(tot_bags)
+
 def main():
     with open('test_input.txt') as f:
         lines = f.readlines()
-    #part1(lines)
+    for line in lines:
+        line = line.rstrip('.\n')
+        line = re.split('contain |, ', line)
+        contain = []
+        for b in line:
+            if b == line[0]:
+                pass
+            else:
+                contain.append(b)
+            bags[line[0].rstrip(' ')] = contain
+    part1(lines)
     part2(lines)
 
 
