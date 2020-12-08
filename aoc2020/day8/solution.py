@@ -1,6 +1,5 @@
 import copy
 def part2(instructions):
-    
     acc = i = 0
     jmp_pos = []
     nop_pos = []
@@ -24,7 +23,7 @@ def part2(instructions):
                 acc += int(instruction[3:])
             elif instruction[:3] == 'jmp':
                 jmp = int(instruction[3:])
-                i += jmp
+                i += jmp - 1
             visited.append(i)
             i += 1
         if acc > 0:
@@ -36,7 +35,7 @@ def part2(instructions):
         test = copy.deepcopy(instructions)
         test[x] = 'jmp' + test[x][3:]
         #print('c: ', test[x], 'i: ', x)
-        while i < len(test):
+        while i != len(test):
             if i in visited:
                 acc = -1
                 break
@@ -76,7 +75,7 @@ def part1(instructions):
         i += 1
     print(acc)
 
-with open('input.txt') as f:
+with open('test_input.txt') as f:
     lines = f.readlines()
 instructions = []
 for line in lines:
