@@ -13,7 +13,6 @@ def part2(instructions):
         visited = []
         test = copy.deepcopy(instructions)
         test[x] = 'nop' + test[x][3:]
-        #print('c: ', test[x], 'i: ', x)
         while i < len(test):
             if i in visited:
                 acc = -1
@@ -23,7 +22,8 @@ def part2(instructions):
                 acc += int(instruction[3:])
             elif instruction[:3] == 'jmp':
                 jmp = int(instruction[3:])
-                i += jmp - 1
+                i += jmp
+                continue
             visited.append(i)
             i += 1
         if acc > 0:
@@ -34,7 +34,6 @@ def part2(instructions):
         visited = []
         test = copy.deepcopy(instructions)
         test[x] = 'jmp' + test[x][3:]
-        #print('c: ', test[x], 'i: ', x)
         while i != len(test):
             if i in visited:
                 acc = -1
@@ -46,15 +45,13 @@ def part2(instructions):
                 jmp = int(instruction[3:])
                 if jmp == 0:
                     break
-                i += jmp - 1
+                i += jmp
+                continue
             elif instruction[:3] == 'nop':    
                 i += 1
                 continue
             visited.append(i)
-            prev_i = i
             i += 1
-        #if acc == prev_acc:
-        #   continue
         if acc > 0:
             print(acc)
 
@@ -70,17 +67,18 @@ def part1(instructions):
             acc += int(instruction[3:])
         elif instruction[:3] == 'jmp':
             jmp = int(instruction[3:])
-            i += jmp - 1
+            i += jmp
+            continue
         visited.append(i)
         i += 1
     print(acc)
 
-with open('test_input.txt') as f:
+with open('input.txt') as f:
     lines = f.readlines()
 instructions = []
 for line in lines:
     instructions.append(line.rstrip('\n'))
 
 
-#part1(instructions)
+part1(instructions)
 part2(instructions)

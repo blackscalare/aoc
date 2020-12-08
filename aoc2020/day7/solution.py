@@ -73,7 +73,7 @@ def part2(lines):
     print(tot_bags)
 
 def main():
-    with open('test_input.txt') as f:
+    with open('input.txt') as f:
         lines = f.readlines()
     for line in lines:
         line = line.rstrip('.\n')
@@ -85,7 +85,7 @@ def main():
             else:
                 contain.append(b)
             bags[line[0].rstrip(' ')] = contain
-    part1(lines)
+    #part1(lines)
     part2(lines)
 
 
