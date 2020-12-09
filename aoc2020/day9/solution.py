@@ -15,17 +15,13 @@ def get_sums(i):
 
 def part1(lines):
     for i in range(len(lines)):
-        if i + 25 > len(lines):
-            break
         if i >= 25:
             sums = get_sums(i)
             if lines[i] not in sums:
                 return lines[i]
-                
+
 def part2(num, lines):
     for i in range(len(lines)):
-        if i + 25 > len(lines):
-            break
         if i >= 25:
             prems = get_prems(i)
             tot = 0
