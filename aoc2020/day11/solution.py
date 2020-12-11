@@ -63,7 +63,7 @@ def check_seats(seats, allowed):
     #print(seats)
     #for x in seats:
     #    print(x)
-    print(res)
+   # print(res)
     return res.split('\n')[:-1], _allowed
 
 def fill_seats(seats):
@@ -75,8 +75,10 @@ def fill_seats(seats):
         for k in z:
             if k == 'L':
                 num_seats += 1
-    while len(_allowed) < num_seats:
+    s_seats = 0
+    while s_seats < num_seats:
         row = ''
+        s_seats = 0
         for i in range(len(seats)):
             rows = seats[i]
             for j in range(len(rows)):
@@ -89,7 +91,11 @@ def fill_seats(seats):
             if i < len(seats):
                 row += "\n"
         seats, _allowed = check_seats(row.split('\n')[:-1], _allowed)
-        print(len(_allowed))
+        for z in seats:
+            for k in z:
+                if k == '#':
+                    s_seats += 1
+        print(s_seats, num_seats)
         cnt += 1
     return cnt
 seats = [line.rstrip('\n') for line in open('test_input.txt')]
