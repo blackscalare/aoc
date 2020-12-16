@@ -71,28 +71,15 @@ def part2(lines, not_valid):
         if cnt > 1:
             if line != '':
                 nearby.append(line.split(','))
-    """for i in nearby[1:]:
-        for x in i:
-            if int(x) in not_valid:
-                try:
-                    print(i)
-                    print(int(x))
-                    i.remove(int(x))
-                    print(i)
-                except:
-                    pass"""
+    for i in nearby[1:]:
+        for u in not_valid:
+            if str(u) in i:
+                nearby.remove(i)
+                break
     columns = len(nearby[1:][0])
     cols = {}
     for i in range(columns):
         cols[i] = getCols(i, nearby[1:])
-    #print(cols[19]) 
-    #print(limits)
-    for c in cols:
-        for u in not_valid:
-            if int(u) in cols[c]:
-                cols[c] = filter((int(u)).__ne__, cols[c])
-                #cols[c].remove(int(u))
-        #print(cols[c])
     for k in limits:
         ranges = []
         for y in limits[k]:
@@ -103,17 +90,13 @@ def part2(lines, not_valid):
             for j in range(ranges[i], ranges[i+1] + 1):
                 r.append(j)
         limits[k] = r
-    #print(limits)
-    #print(cols)
-    #print(cols)
-    #print(limits['departure location'])
     mmine = mine[1:][0].split(',')
+    w = {}
     for lk in limits:
-        #print(limits[lk])
         for colk in cols:
             if all(elem in limits[lk] for elem in cols[colk]):
+                w[lk] = [colk]
                 print(lk, colk)
-    print()
 
 lines = [line.rstrip('\n') for line in open('input.txt')]
 #part1(lines)
