@@ -1,3 +1,5 @@
+from itertools import product
+
 lines = [line.rstrip('\n') for line in open('test_input.txt')]
 
 def check_neighbours(pos, universe):
@@ -42,28 +44,8 @@ def check_neighbours(pos, universe):
     if 1 < count < 4:
         if universe[pos] == '.' and count == 3:
             to_change[pos] = '#'
-        elif universe[pos] == '#' and count >= 2 and count <=3:
+        elif universe[pos] == '#' and  2 >= count >= 3:
             to_change[pos] = '#'
-        """#if universe[pos] == '.' and count == 3:
-        if universe[pos] == '.' and count == 3:
-            to_change[pos] = '#'
-        if universe[(pos[0], pos[1], pos[2] + 1)] == '.' and count == 3:
-                #print([(pos[0],pos[1],pos[2] + 1)])
-                to_change[(pos[0],pos[1],pos[2] + 1)] = '#'
-        if universe[(pos[0], pos[1], pos[2] - 1)] == '.' and count == 3:
-            to_change[(pos[0],pos[1],pos[2] - 1)] = '#'
-        elif count >= 2 and count <=3:
-            if universe[pos] == '#':
-                to_change[pos] = '#'
-            #if universe[(pos[0], pos[1], pos[2] + 1)] == '#':
-                to_change[(pos[0],pos[1],pos[2] + 1)] = '#'
-            #if universe[(pos[0], pos[1], pos[2] - 1)] == '#':
-                to_change[(pos[0],pos[1],pos[2] - 1)] = '#'
-        else:
-            #print([(pos[0],pos[1],pos[2] + 1)])
-            to_change[pos] = '.'
-            to_change[(pos[0],pos[1],pos[2] + 1)] = '.'
-            to_change[(pos[0],pos[1],pos[2] - 1)] = '.'"""
     else:
         to_change[pos] = '.'
         #to_change[(pos[0],pos[1],pos[2] + 1)] = '.'
@@ -84,7 +66,7 @@ for y, line in enumerate(lines):
 
 
 z = 0
-while z < 7:
+while z < 6:
     to_change = {}
     for pos in universe:
         to_change.update(check_neighbours(pos, universe))
@@ -93,9 +75,10 @@ while z < 7:
     for pos in universe:
         for x in range(4):
             for y in range(4):
-                if pos == (x, y, -2):
-                    pass
-                    #print(pos, universe[pos])
+                if pos == (x, y, 0):
+                    print(pos, universe[pos])
+    if z == 1:
+        break
     z += 1
 
 line = 0
@@ -103,10 +86,12 @@ s = ''
 cnt = 0
 for pos in universe:
     #print(pos, universe[pos])
+    if pos[2] == 0:
+        s += universe[pos]
     if line % len(universe) == 0:
         s += '\n\n'
         line = 0
-    s += universe[pos]
+    #s += universe[pos]
     line += 1
 print(s)
 for pos in universe:
