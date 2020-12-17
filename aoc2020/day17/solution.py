@@ -3,39 +3,15 @@ from itertools import product
 lines = [line.rstrip('\n') for line in open('test_input.txt')]
 
 def check_neighbours(pos, universe):
-    to_change = {}
-    up_left = (pos[0] - 1, pos[1] - 1, pos[0])
-    up = (pos[0], pos[1] - 1, pos[0])
-    up_right = (pos[0] + 1, pos[1] - 1, pos[0])
-    left = (pos[0] - 1, pos[1], pos[0])
-    right = (pos[0] + 1, pos[1], pos[0])
-    down_left = (pos[0] - 1, pos[1] + 1, pos[0])
-    down = (pos[0], pos[1] + 1, pos[0])
-    down_right = (pos[0] + 1, pos[1] + 1, pos[0])
-
-    near_on_z = ((pos[0] - 1, pos[1] + 1, pos[2]), (pos[0], pos[1] + 1, pos[2]), (pos[0] + 1, pos[1] + 1, pos[2]),
-                (pos[0] - 1, pos[1], pos[2]),        (),                         (pos[0] + 1, pos[1], pos[2]),
-                (pos[0] - 1, pos[1] - 1, pos[2]), (pos[0], pos[1] - 1, pos[2]), (pos[0] + 1, pos[1] - 1, pos[2]))
-    near_on_z_up = ((pos[0] - 1, pos[1] + 1, pos[2] + 1), (pos[0], pos[1] + 1, pos[2] + 1), (pos[0] + 1, pos[1] + 1, pos[2] + 1),
-                (pos[0] - 1, pos[1], pos[2] + 1),(pos[0], pos[1], pos[2] + 1) , (pos[0] + 1, pos[1], pos[2] + 1),
-                (pos[0] - 1, pos[1] - 1, pos[2] + 1), (pos[0], pos[1] - 1, pos[2] + 1), (pos[0] + 1, pos[1] - 1, pos[2] + 1))
-    near_on_z_down = ((pos[0] - 1, pos[1] + 1, pos[2] - 1), (pos[0], pos[1] + 1, pos[2] - 1), (pos[0] + 1, pos[1] + 1, pos[2] - 1),
-                (pos[0] - 1, pos[1], pos[2] - 1), (pos[0], pos[1], pos[2] - 1), (pos[0] + 1, pos[1], pos[2] - 1),
-                (pos[0] - 1, pos[1] - 1, pos[2] - 1), (pos[0], pos[1] - 1, pos[2] - 1), (pos[0] + 1, pos[1] - 1, pos[2] - 1))            
+    to_change = {}         
     count = 0
-    for near, near_up, near_down in zip(near_on_z, near_on_z_up, near_on_z_down):
+    directions = list(product([0, 1, -1], repeat=3))
+    directions.remove((0,)*3)
+
+    for x, y, z in directions:
+        p = (pos[0] + x, pos[1] + y, pos[2] + z)
         try:
-            if universe[near] == '#': 
-                count += 1
-        except:
-            pass
-        try:
-            if universe[near_up] == '#':
-                count += 1
-        except:
-            pass
-        try:
-            if universe[near_down] == '#':
+            if universe[p] == '#':
                 count += 1
         except:
             pass
@@ -66,7 +42,7 @@ for y, line in enumerate(lines):
 
 
 z = 0
-while z < 6:
+while z != 7:
     to_change = {}
     for pos in universe:
         to_change.update(check_neighbours(pos, universe))
@@ -76,27 +52,19 @@ while z < 6:
         for x in range(4):
             for y in range(4):
                 if pos == (x, y, 0):
+                    
                     print(pos, universe[pos])
-    if z == 1:
-        break
+    #print('\n\n')
+    #if z == 1:
+    #    break
+    #exit()
     z += 1
 
 line = 0
 s = ''
 cnt = 0
 for pos in universe:
-    #print(pos, universe[pos])
-    if pos[2] == 0:
-        s += universe[pos]
-    if line % len(universe) == 0:
-        s += '\n\n'
-        line = 0
-    #s += universe[pos]
-    line += 1
-print(s)
-for pos in universe:
     if universe[pos] == '#':
         cnt += 1
-    #for l in universe[pos]:
 
 print(cnt)
